@@ -18,8 +18,14 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="devise-forms">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 
-<%= yield %>
 
 </body>
 </html>
