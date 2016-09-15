@@ -1,10 +1,14 @@
 <div class="col-md-3">
   <aside class="sidebar">
-    <h3>Sidebar stuff heah</h3>
+    <h3>Sessions completed today: 0</h3>
   </aside>
 </div>
 <div class="col-md-9">
-  <main ng-controller="PomodoroCtrl">
-
+  <h1>Start session</h1>
+  <main ng-controller="TimerCtrl">
+    <button  ng-click="startTimer()" class='btn btn-primary btn-lg'>{{timerStarted ? 'Pause' : 'Go!'}}</button>
+    <div class="timer" ng-show='timerStarted'>
+      {{countDown | formatTime}}  
+    </div>
   </main>
 </div>
