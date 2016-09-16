@@ -6,6 +6,9 @@ app.controller('TimerCtrl', [
 
       $scope.sessionCount = 0;
 
+      var timerBell = new buzz.sound("<%= audio_path('tibetan_bowl.ogg') %>", {
+        preload: true
+      });
 
       $scope.startTimer = function (seconds) {
         $scope.countDown = Number(seconds);
@@ -20,6 +23,7 @@ app.controller('TimerCtrl', [
           $interval.cancel(timer);
           timer = undefined;
           $scope.timerRunning = false;
+          timerBell.play();
 
           if ($scope.shortBreak || $scope.longBreak) {
             $scope.shortBreak = false;
