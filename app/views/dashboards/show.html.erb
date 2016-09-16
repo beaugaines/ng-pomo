@@ -1,14 +1,17 @@
-<div class="col-md-3">
+<div class="col-md-9 col-offset-3" ng-controller="TimerCtrl" ng-init="working = true">
   <aside class="sidebar">
-    <h3>Sessions completed today: 0</h3>
+    <h3>Sessions completed today: {{sessionCount}} </h3>
   </aside>
-</div>
-<div class="col-md-9">
-  <h1>Start session</h1>
-  <main ng-controller="TimerCtrl">
-    <button  ng-click="startTimer()" class='btn btn-primary btn-lg'>{{timerStarted ? 'Pause' : 'Go!'}}</button>
-    <div class="timer" ng-show='timerStarted'>
-      {{countDown | formatTime}}  
-    </div>
+
+  <h1 ng-show="working">Work time</h1>
+  <h1 ng-show="shortBreak">Short break time</h1>
+  <h1 ng-show="longBreak">Long break time</h1>
+  <main>
+    <button ng-show="working && !timerRunning" ng-click="startTimer(5)" class='btn btn-primary btn-lg'>Go!</button>
+    <button ng-show="shortBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
+    <button ng-show="longBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
+    <button ng-show="timerRunning" ng-click="pauseTimer()" class='btn btn-success btn-lg'>Pause</button>
+    <button ng-show="timerRunning" ng-click="resetTimer()" class="btn btn-warning btn-lg'">Reset</button>
+    <div ng-show="timerRunning" class='timer'>{{countDown | formatTime}}</div>
   </main>
 </div>
