@@ -9,6 +9,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'bower-rails'
 gem 'angular-rails-templates'
+gem 'angular_rails_csrf'
 
 group :development, :test do
   gem 'pry-rails'

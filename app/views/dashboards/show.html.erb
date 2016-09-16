@@ -1,17 +1,35 @@
-<div class="col-md-9 col-offset-3" ng-controller="TimerCtrl" ng-init="working = true">
-  <aside class="sidebar">
-    <h3>Sessions completed today: {{sessionCount}} </h3>
-  </aside>
+<div class="col-md-12">
+  <div class="timer-wrapper" ng-controller="TimerCtrl" ng-init="working = true">
+    <div class="col-md-6">
+      <aside class="sidebar">
+        <h3>Sessions completed today: {{sessionCount}} </h3>
 
-  <h1 ng-show="working">Work time</h1>
-  <h1 ng-show="shortBreak">Short break time</h1>
-  <h1 ng-show="longBreak">Long break time</h1>
-  <main>
-    <button ng-show="working && !timerRunning" ng-click="startTimer(5)" class='btn btn-primary btn-lg'>Go!</button>
-    <button ng-show="shortBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
-    <button ng-show="longBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
-    <button ng-show="timerRunning" ng-click="pauseTimer()" class='btn btn-success btn-lg'>Pause</button>
-    <button ng-show="timerRunning" ng-click="resetTimer()" class="btn btn-warning btn-lg'">Reset</button>
-    <div ng-show="timerRunning" class='timer'>{{countDown | formatTime}}</div>
-  </main>
+        <h1>Select category</h1>
+        <select class="worktime-select" ng-model="workCategory">
+          <option value="work">Work</option>
+          <option value="chores">Chores</option>
+          <option value="school">School</option>
+          <option value="hobby">Hobby</option>
+        </select>
+      </aside>
+    </div>
+
+    <div class="col-md-6">
+      <h1 ng-show="working">Work time</h1>
+      <h1 ng-show="shortBreak">Short break time</h1>
+      <h1 ng-show="longBreak">Long break time</h1>
+      <main>
+        <button ng-show="working && !timerRunning" ng-click="startTimer(5)" class='btn btn-primary btn-lg'>Go!</button>
+        <button ng-show="shortBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
+        <button ng-show="longBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
+        <button ng-show="timerRunning" ng-click="pauseTimer()" class='btn btn-success btn-lg'>Pause</button>
+        <button ng-show="timerRunning" ng-click="resetTimer()" class="btn btn-warning btn-lg'">Reset</button>
+        <div ng-show="timerRunning" class='timer'>{{countDown | formatTime}}</div>
+      </main>
+    </div>
+
+
+
+  </div>
+
 </div>

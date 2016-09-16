@@ -4,17 +4,27 @@ app.controller('TimerCtrl', [
             '$scope', '$http', '$interval',
     function($scope, $http, $interval) {
 
-      $scope.sessionCount = 0;
-
       var timerBell = new buzz.sound("<%= audio_path('tibetan_bowl.ogg') %>", {
         preload: true
       });
+
+      setSessionCount();
 
       $scope.startTimer = function (seconds) {
         $scope.countDown = Number(seconds);
         $scope.timerRunning = true;
         timer = $interval(updateCountdown, 1000);
       };
+
+      function setSessionCount() {
+        $http.get('/sessions/count')
+          .success(function (res) {
+            $scope.sessionCount = res;
+          }
+         ).error(function (res) {
+            alert('there was an error');
+         });
+      }
 
       function updateCountdown() {
         $scope.countDown--;
@@ -31,6 +41,11 @@ app.controller('TimerCtrl', [
             $scope.working = true;
           } else {
             $scope.sessionCount++;
+            $http.post("/sessions",
+              { 'session': {'category': $scope.workCategory } }
+            ).success(
+                function (data,status,headers,config) {
+              }).error({});
             $scope.working = false;
             if ($scope.sessionCount % 4 === 0) {
               $scope.longBreak = true;
@@ -54,6 +69,7 @@ app.controller('TimerCtrl', [
 
     }
 ]);
+
 
 app.filter('formatTime', function () {
   return function (seconds) {
