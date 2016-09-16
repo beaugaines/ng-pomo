@@ -19,7 +19,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="pomodoroTimer">
-  <div class="container">
+  <%= render 'shared/navbar' %>
+  <div class="container main-content">
     <div class="row">
       <%= render 'shared/flash' %>
       <%= yield %>

@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
-  resources :users, only: :show
-  resources :sessions, only: :create
-
-  get 'sessions/count', to: 'sessions#count'
-
-  devise_for :users
   root 'dashboards#show'
+  devise_for :users
+  resources :sessions, only: :create
+  get 'sessions/count', to: 'sessions#count'
+  resources :users, only: :show
 end
