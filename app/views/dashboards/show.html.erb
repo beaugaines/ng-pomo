@@ -31,9 +31,9 @@
         <h1 ng-show="longBreak">Long break time</h1>
       </div>
       <main>
-        <button ng-show="working && !timerRunning" ng-click="startTimer(5)" class='btn btn-primary btn-lg btn-wide'>Go!</button>
-        <button ng-show="shortBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
-        <button ng-show="longBreak && !timerRunning" ng-click="startTimer(3)" class='btn btn-primary btn-lg'>Go!</button>
+        <button ng-show="working && !timerRunning" ng-click="startTimer(1500)" class='btn btn-primary btn-lg btn-wide'>Go!</button>
+        <button ng-show="shortBreak && !timerRunning" ng-click="startTimer(300)" class='btn btn-primary btn-lg'>Go!</button>
+        <button ng-show="longBreak && !timerRunning" ng-click="startTimer(600)" class='btn btn-primary btn-lg'>Go!</button>
         <button ng-show="timerRunning" ng-click="pauseTimer()" class='btn btn-success btn-lg'>Pause</button>
         <button ng-show="timerRunning" ng-click="resetTimer()" class="btn btn-warning btn-lg'">Reset</button>
         <div ng-show="timerRunning" class='timer'>{{countDown | formatTime}}</div>
