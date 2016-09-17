@@ -8,6 +8,7 @@ app.controller('TimerCtrl', [
         preload: true
       });
 
+      $scope.pauseCount = null;
       $scope.workSessionCount = 0;
       getSessions();
 
@@ -58,18 +59,26 @@ app.controller('TimerCtrl', [
       }
 
       $scope.startTimer = function (seconds) {
-        $scope.countDown = Number(seconds);
+        if ($scope.pauseCount) {
+          $scope.countDown = $scope.pauseCount;
+        } else {
+          $scope.countDown = Number(seconds);
+        }
         $scope.timerRunning = true;
         timer = $interval(updateCountdown, 1000);
       };
 
 
       $scope.pauseTimer = function () {
-        // how to pause $interval?
+        $scope.pauseCount = $scope.countDown;
+        $scope.timerRunning = null;
+        $interval.cancel(timer);
+        timer = undefined;
       };
 
       $scope.resetTimer = function () {
         $scope.timerRunning = null;
+        $scope.pauseCount = null;
         $scope.countDown = 1500;
         $scope.description = undefined;
         $scope.workCategory = undefined;
