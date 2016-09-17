@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
-  # respond_to :json
+
+  def index
+    render json: current_user.sessions.today.limit(6)
+  end
 
   def create
     if current_user.sessions.create(session_params)
@@ -9,13 +12,9 @@ class SessionsController < ApplicationController
     end
   end
 
-  def count
-    render json: current_user.sessions.today.count
-  end
-
   private
   def session_params
-    params.require(:session).permit(:category)
+    params.require(:session).permit(:category, :description)
   end
 
 end

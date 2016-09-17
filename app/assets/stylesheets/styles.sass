@@ -4,8 +4,15 @@ $gun-gray: #8C94A1
 $light-gray: #BDC7D6
 $violet-gray: #DFE2FF
 
+@mixin centered-content
+  display: flex
+  justify-content: center
+  align-content: center
+  flex-direction: column
+  text-align: center
+
 body
-  background-color: #BDC7D6
+  background-color: lighten(#BDC7D6, 10%)
   padding-top: 40px
   padding-bottom: 40px
 
@@ -19,6 +26,28 @@ body
     width: 100%
     margin: 1rem 0
 
+.pb-1
+  padding-bottom: 1rem
+
+.pb-15
+  padding-bottom: 1.5rem
+
+.pb-2
+  padding-bottom: 2rem
+
+
+.mb-1
+  margin-bottom: 1rem
+
+.mb-15
+  margin-bottom: 1.5rem
+
+.mb-2
+  margin-bottom: 2rem
+
+.btn-wide
+  width: 9rem
+
 .timer
   margin-top: 2rem
   font-size: 4rem
@@ -30,6 +59,21 @@ body
 .pomodoro-navbar
   background-color: $gun-gray
   opacity: 0.8
+  height: 60px
+  padding-top: 0.2rem
 
   a
     color: $dark-gray
+
+.recent-sessions
+  margin-top: 3rem
+
+.session
+  @include centered-content
+  width: 70%
+  height: 3rem
+  background-color: $light-gray
+  border: 1px solid $gun-gray
+
+  &:nth-child(even)
+    background-color: $violet-gray

@@ -8,22 +8,26 @@ app.controller('TimerCtrl', [
         preload: true
       });
 
-      setSessionCount();
+      $scope.workSessionCount = 0;
+      getSessions();
 
-      $scope.startTimer = function (seconds) {
-        $scope.countDown = Number(seconds);
-        $scope.timerRunning = true;
-        timer = $interval(updateCountdown, 1000);
-      };
+      function getSessions() {
+        $http.get('/sessions')
+          .then(function (res) {
+            $scope.sessions = res.data;
+          }, function (res) {
+            alert('error!');
+        });
+      }
 
-      function setSessionCount() {
-        $http.get('/sessions/count')
-          .success(function (res) {
-            $scope.sessionCount = res;
-          }
-         ).error(function (res) {
-            alert('there was an error');
-         });
+      function createSession() {
+        $http.post("/sessions",
+          { 'session': {'category': $scope.workCategory } }
+        ).then(
+          // do I need success callback here?
+          getSessions(), function (res) {
+            alert('error reported due to ' + res);
+        });
       }
 
       function updateCountdown() {
@@ -40,21 +44,25 @@ app.controller('TimerCtrl', [
             $scope.longBreak = false;
             $scope.working = true;
           } else {
-            $scope.sessionCount++;
-            $http.post("/sessions",
-              { 'session': {'category': $scope.workCategory } }
-            ).success(
-                function (data,status,headers,config) {
-              }).error({});
+            $scope.workSessionCount++;
             $scope.working = false;
-            if ($scope.sessionCount % 4 === 0) {
+            if ($scope.workSessionCount % 4 === 0) {
               $scope.longBreak = true;
+              createSession();
+              resetTimer();
             } else {
               $scope.shortBreak = true;
             }
           }
         }
       }
+
+      $scope.startTimer = function (seconds) {
+        $scope.countDown = Number(seconds);
+        $scope.timerRunning = true;
+        timer = $interval(updateCountdown, 1000);
+      };
+
 
       $scope.pauseTimer = function () {
         // how to pause $interval?
@@ -63,6 +71,8 @@ app.controller('TimerCtrl', [
       $scope.resetTimer = function () {
         $scope.timerRunning = null;
         $scope.countDown = 1500;
+        $scope.description = undefined;
+        $scope.workCategory = undefined;
         $interval.cancel(timer);
         timer = undefined;
       }
